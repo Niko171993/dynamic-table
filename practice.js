@@ -59,3 +59,59 @@ const formatPrice = (number) => {
     return newNumber 
 }
 
+
+
+//TODOS -> stars,colors,buttons,pictures,numberformat, push
+
+const stars = Array.from({length:5}, (_,index) => {
+    return `<span>${stars > index + 1 ? 'full': stars > index + 0.5 ? 'half':'empty'}</span>`
+})
+
+const colors = 
+
+{
+    colors.map(color,index => {
+        return <button
+        className={`${mainColor === color ? 'active':null}`}
+        style={{backround:color}}
+        onClick={() => setMainColor(color || colors[index])}
+        >{mainColor === color ? 'check':'no-check'}</button>
+    })
+}
+
+setNumber((currentNumber) => {
+    let nextNumber = currentNumber + 1 
+    if(nextNumber > stock) nextNumber = stock 
+    return nextNumber 
+})
+
+setNumber(currentNumber => {
+    let prevNumber = currentNumber - 1
+    if(prevNumber < 1) {
+        prevNumber = 1
+    }
+    return prevNumber 
+
+})
+
+{
+    images.map(image,index => {
+        return <img src={image.url} className={mainImage.url === image.url ? 'active': null}onClick={() => setMain(images[index])}/>
+
+    })
+}
+
+const numberFormat = () => {
+    const newNumber = Intl.NumberFormat('en-US', {
+        style:'currency',
+        currency:'USD'
+    }).format(number / 100)
+    return newNumber 
+}
+
+useEffect(() => {
+    setTimeout(() => {
+        history.push('/')
+    }, 3000)
+}, [])
+

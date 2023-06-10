@@ -71,14 +71,41 @@ let totalval = []
 let allEvents = []
 let amountOfSubmits = 0
 const dis = false 
+
+let allStudentsData = [
+    {
+        id:1,
+        name:'Nikoloz',
+        amount: ''
+    },
+    {
+        id:2,
+        name:'Davit',
+        amount: ''
+    },
+    {
+        id:3,
+        name:'Rezo',
+        amount: ''
+    },
+]
 const formSubmit = (event) => {
    event.preventDefault()
-   
-     
-   
+   console.log('hi')
+   console.log(event.target.dataset.label)
+   allStudentsData = allStudentsData.map(item => {
+       if(item.name === event.target.dataset.label) {
+           
+           return {...item, amount: event.target.value}
+        }else {
+            return item
+        }
+    })
+    let person = allStudentsData.find(person => person.name === event.target.dataset.label)
+    person.amount = ''
+    allStudentsData.push(person)
         
-       numberAmount.push({amount: event.target.value, id: event.target.id}) 
-       console.log(event.target.id)
+       
         event.target.disabled = true
         event.target.style.background = 'red'
 }
@@ -88,23 +115,32 @@ let value = null;
 
 const addPerson = () => {
     const id = Math.floor(Math.random()*9999)
-    const displayingAmount = numberAmount.map(item => {
+    const displayingAmount = allStudentsData.map(item => {
+        if(item.amount === '') {
+            return 
+        } else {
+            return `<input id="${item.id}" disabled type='text' class='box red' onchange="formSubmit(event)"
+            value='${item.amount}'/>`
+        }
         
-        return `<input id="${item.id}" disabled type='text' class='box red' onchange="formSubmit(event)"
-        value='${item.amount}'/>`
     }).join('')
     
     element = `<input id=""  type='text' onchange="formSubmit(event)" class='box'
     value=''/>`
    
-    
-    const manyElements = Array.from({length: 5}, (_,index) => {
+    const allStudents = allStudentsData.map(item => {
+        const newId = Math.floor(Math.random()*9999)
+        
+        return `<input id="${newId}"  data-label="${item.name}"type='text' onchange="formSubmit(event)" class='box'
+        value=''/>`
+    }).join('')
+    const manyElements = Array.from({length: allStudentsData.length }, (_,index) => {
         const newId = Math.floor(Math.random()*9999)
         return `<input id="${newId}"  type='text' onchange="formSubmit(event)" class='box'
         value=''/>`
     }).join('')
     
-    const allArrays = [...displayingAmount, manyElements]
+    const allArrays = [...displayingAmount, allStudents]
     form.innerHTML = allArrays.join('')
     
 }
@@ -116,3 +152,14 @@ addPersonBtn.addEventListener('click', addPerson)
 // i need to create a field with id already
 // i need to create 1 field with id, and add id to all previous inputs
 // i need to create 5 boxes and add id's to all of them.
+
+//we need to create data in which we will have all of the students.
+// we need to create a box for each of the students on each render
+
+//we need to somehow send id of the clicked to the formSubmit function
+
+//if we map the 
+
+//okay so the whole logic is messed up.
+//for each box that is checked, i have to check whose it is, create a random Index, and add that person in it.
+//than create boxes based on 3 names
